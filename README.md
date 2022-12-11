@@ -35,13 +35,13 @@ docker-compose -f kafka/docker-compose.yml up -d
 Kafka exposes a Web-UI at [http://localhost:9000](http://localhost:9000), which is used to create the Kafka cluster.<br>
 The REST-Interface between Kafka and Cassandra is available at [http://localhost:8083](http://localhost:8083).
 
-Make sure to create `twitter/keys.py` and add your API keys. Then, you can start the producer:
+Make sure to create `producer/keys.py` and add your API keys. Then, you can start the producer:
 ```bash
-docker-compose -f twitter/docker-compose.yml up -d
+docker-compose -f producer/docker-compose.yml up -d
 ```
 
 Sanity check that all containers are running with `docker ps -a`.<br>
-Verify the output of the producer with `docker logs -f twitter`.
+Verify the output of the producer with `docker logs -f producer`.
 
 All data that gets streamed to the `twittersink` topic will be propagated to Cassandra for storage.
 
