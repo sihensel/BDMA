@@ -1,17 +1,18 @@
-version: "3"
+version: '3'
 
 services:
-
   zookeeper:
-    image: zookeeper
+    image: 'confluentinc/cp-zookeeper:latest'
+    container_name: 'zookeeper'
+    hostname: 'zookeeper'
     restart: always
-    container_name: zookeeper
-    hostname: zookeeper
-    ports:
-      - 2181:2181
     networks:
       - default
+    ports:
+      - '2181:2181'
     environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
       ZOO_MY_ID: 1
 
   broker:
@@ -25,24 +26,9 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: broker
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_MESSAGE_MAX_BYTES: 2000000
-      # Create topic, with 1 partition, 1 replica
-      KAFKA_CREATE_TOPICS: "${TWEET_TOPIC}:1:1,${TWITTER_SINK_TOPIC}:1:1"
-
-  kafka_manager:
-    image: hlebalbau/kafka-manager:stable
-    container_name: kafka-manager
-    restart: always
-    ports:
-      - 9000:9000
-    networks:
-      - default
-    environment:
-      ZK_HOSTS: "zookeeper:2181"
-      APPLICATION_SECRET: "random-secret"
-      KAFKA_MANAGER_AUTH_ENABLED: "true"
-      KAFKA_MANAGER_USERNAME: admin
-      KAFKA_MANAGER_PASSWORD: admin
-    command: -Dpidfile.path=/dev/null
+      KAFKA_CREATE_TOPICS: "twitter:1:1,twittersink:1:1,articlesink:1:1"
+    depends_on:
+      - zookeeper
 
   connect:
     build:

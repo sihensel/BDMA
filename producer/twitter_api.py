@@ -2,6 +2,7 @@ import json
 import logging
 import re
 import requests
+import time
 import tweepy
 from kafka import KafkaProducer
 
@@ -40,7 +41,7 @@ def main():
     )
 
     target_hashtags = {
-        # '#Ukraine',
+        '#Ukraine',
         '#UkraineWar',
         # '#UkraineNazis',
         # '#UkraineRussianWar',
@@ -51,10 +52,10 @@ def main():
 
     logger.info("Getting Tweets from Twitter API")
 
+    ids = set()
     for tag in target_hashtags:
         logger.info("Scraping hashtag %s" % tag)
         response = client.search_recent_tweets(
-            # FIXME recheck this search string
             '%s lang:en -is:retweet -is:quote -is:reply' % tag,
             tweet_fields=[
                 'author_id',
@@ -63,7 +64,7 @@ def main():
                 'public_metrics'
             ],
             expansions=['author_id'],
-            user_fields=['verified', 'location', 'created_at'],
+            user_fields=['verified', 'created_at'],
             max_results=10
         ).json()
 
@@ -71,31 +72,39 @@ def main():
         users = response['includes']['users']
 
         for tweet in tweets:
+
+            if tweet['id'] in ids:
+                logger.warning("Duplicate Tweet %s" % tweet['id'])
+                continue
+
+            ids.add(tweet['id'])
             user = [user for user in users if user['id'] == tweet['author_id']][0]
 
-            # remove tagged users from tweet
-            text = re.sub(r'@\w+', '', tweet['text'])
-            text = text.replace('\n', '')
+            # some text cleanup
+            # FIXME should we remove URLs in tweets?
+            text = re.sub(r'@\w+', '', tweet['text'])   # remove tagged users
+            text = re.sub(r'[^\w.#:/\s]+', ' ', text)    # remove non word characters, except some
+            text = text.replace('\n', ' ')              # remove linebreaks
+            text = re.sub(r'\s{2,}', ' ', text)         # remove duplicate whitespaces
+            text = text.casefold()                      # make the string lowercase
 
             data = {
                 'id': tweet['id'],
                 'tweet': text,
                 'author': tweet['author_id'],
                 'created_at': str(tweet['created_at']),
-
-                # FIXME this calculation is VERY basic
                 'engagements': sum(tweet['public_metrics'].values()),
-
-                'author_verified': user['verified'],
+                'author_verified': str(user['verified']),
                 'author_created_at': user['created_at'],
-
-                # FIXME the location is often times set to some arbitrary location,
-                # such as 'Moon' or 'Around', so maybe we should leave that out
-                'author_location': user['location'] if 'location' in user.keys() else ''
             }
 
+            # stream the data to kafka
             logger.info("Sending data to topic %s" % TOPIC_NAME)
             producer.send(TOPIC_NAME, value=data)
+
+        time.sleep(2)
+
+    logger.info("Found %s IDs" % len(ids))
 
 
 if __name__ == '__main__':
