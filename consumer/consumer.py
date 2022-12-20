@@ -18,7 +18,10 @@ KAFKA_BROKER_URL = 'broker:9092'
 
 
 def main():
-    consumer = KafkaConsumer(TOPIC_NAME, bootstrap_servers=[KAFKA_BROKER_URL])
+    consumer = KafkaConsumer(
+        TOPIC_NAME,
+        bootstrap_servers=[KAFKA_BROKER_URL]
+    )
     producer = KafkaProducer(
         bootstrap_servers=KAFKA_BROKER_URL,
         value_serializer=lambda x: json.dumps(x).encode('utf8'),
@@ -31,8 +34,8 @@ def main():
 
         # do ML here
 
-        logger.info("Sending data to Cassandra sink")
-        # producer.send(TWITTER_SINK_TOPIC, value=data)
+        logger.info("Sending data to topic %s" % TWITTER_SINK_TOPIC)
+        producer.send(TWITTER_SINK_TOPIC, value=data)
 
 
 if __name__ == '__main__':

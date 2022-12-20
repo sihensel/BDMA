@@ -12,30 +12,35 @@ Make sure you have `docker` and `docker-compose` available on your machine.
 Create two networks for Docker
 
 ```bash
-docker network create kafka-network
+docker network create kafka-network && \
 docker network create cassandra-network
 ```
 
+
 ### Start the containers
 
-Make sure to run all of these commands inside of the root directory of the repo.
+Run all of these commands inside of the root directory of the repo.
 
 Start Cassandra:
 ```bash
 docker-compose -f cassandra/docker-compose.yml up -d
 ```
 
-Check the cassandra logs with `docker logs -f cassandra` and make sure it says `Startup Complete`.
+Check the cassandra logs with `docker logs -f cassandra` and wait until all database tables have been created.
 
-Start Kafka:
+Start all Kafka components:
 ```bash
 docker-compose -f kafka/docker-compose.yml up -d
 ```
+The REST-Interface between Kafka and Cassandra is available at [http://localhost:8083](http://localhost:8083).<br>
+Sinks are at [http://localhost:8083/connectors](http://localhost:8083/connectors).
 
-Kafka exposes a Web-UI at [http://localhost:9000](http://localhost:9000), which is used to create the Kafka cluster.<br>
-The REST-Interface between Kafka and Cassandra is available at [http://localhost:8083](http://localhost:8083).
+Start the consumer and monitor incoming data with `docker logs -f consumer`.
+```bash
+docker-compose -f consumer/docker-compose.yml up -d
+```
 
-Make sure to create `producer/keys.py` and add your API keys. Then, you can start the producer:
+Make sure to create `producer/keys.py` and add your Twitter API keys. Then, you can start the producer:
 ```bash
 docker-compose -f producer/docker-compose.yml up -d
 ```
@@ -50,7 +55,13 @@ Verify that Cassandra is receiving data:
 docker exec -it cassandra bash
 
 # inside the container, run:
-cqlsh --cqlversion=3.4.5 127.0.0.1
+cqlsh
 
-select * from kafkapipeline.twitter;
+select * from pipeline.twitter;
 ```
+
+
+## Tear Down
+
+To remove resources associated with one component, run `docker-compose -f <file> down`.<br>
+To remove _all_ docker resources, execute [reset_docker.sh](./reset-docker.sh).

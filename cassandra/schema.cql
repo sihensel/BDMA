@@ -1,13 +1,27 @@
-DROP KEYSPACE IF EXISTS kafkapipeline;
+DROP KEYSPACE IF EXISTS pipeline;
 
-CREATE KEYSPACE IF NOT EXISTS kafkapipeline
-WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+CREATE KEYSPACE IF NOT EXISTS pipeline
+WITH REPLICATION = {
+    'class': 'SimpleStrategy',
+    'replication_factor': 1
+};
 
-USE kafkapipeline;
+USE pipeline;
 
 CREATE TABLE twitter (
+    id TEXT,
     created_at TEXT,
     tweet TEXT,
     author TEXT,
-    PRIMARY KEY (created_at, author)
+    engagements INT,
+    author_verified BOOLEAN,
+    author_created_at TEXT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE articles (
+    title TEXT,
+    url TEXT,
+    created_at TEXT,
+    PRIMARY KEY (title, url)
 );

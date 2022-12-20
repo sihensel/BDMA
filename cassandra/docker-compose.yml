@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  cassandradb:
+  cassandra:
     container_name: cassandra
     image: cassandra:latest
     ports:
@@ -16,7 +16,7 @@ services:
     container_name: cassandra-load-keyspace
     image: cassandra:latest
     depends_on:
-      - cassandradb
+      - cassandra
     volumes:
       - ./schema.cql:/schema.cql
     command: /bin/bash -c "sleep 60 && echo loading cassandra keyspace && cqlsh cassandra -f /schema.cql"
