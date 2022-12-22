@@ -40,9 +40,10 @@ Start the consumer and monitor incoming data with `docker logs -f consumer`.
 docker-compose -f consumer/docker-compose.yml up -d
 ```
 
-Make sure to create `producer_twitter/keys.py` and add your Twitter API keys. Then, you can start the producer:
+Make sure to create `producer_twitter/keys.py` and add your Twitter API keys. Then, you can start the producers:
 ```bash
 docker-compose -f producer_twitter/docker-compose.yml up -d
+docker-compose -f producer_news/docker-compose.yml up -d
 ```
 
 Sanity check that all containers are running with `docker ps -a`.<br>
@@ -58,6 +59,7 @@ docker exec -it cassandra bash
 cqlsh
 
 select * from pipeline.twitter;
+select * from pipeline.news;
 ```
 
 
