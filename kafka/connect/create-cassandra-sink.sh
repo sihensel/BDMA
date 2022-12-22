@@ -21,12 +21,12 @@ curl -s \
   }
 }'
 
-echo "Starting Article Sink"
+echo "Starting News Sink"
 curl -s \
      -X POST http://localhost:8083/connectors \
      -H "Content-Type: application/json" \
      -d '{
-  "name": "articlesink",
+  "name": "newssink",
   "config":{
     "connector.class": "com.datastax.oss.kafka.sink.CassandraSinkConnector",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
@@ -34,11 +34,11 @@ curl -s \
     "key.converter": "org.apache.kafka.connect.json.JsonConverter",
     "key.converter.schemas.enable":"false",
     "tasks.max": "10",
-    "topics": "articlesink",
+    "topics": "newssink",
     "contactPoints": "cassandra",
     "loadBalancing.localDc": "datacenter1",
-    "topic.articlesink.pipeline.articles.mapping": "created_at=value.created_at, title=value.title, url=value.url",
-    "topic.articlesink.pipeline.articles.consistencyLevel": "LOCAL_QUORUM"
+    "topic.newssink.pipeline.news.mapping": "created_at=value.created_at, title=value.title, url=value.url",
+    "topic.newssink.pipeline.news.consistencyLevel": "LOCAL_QUORUM"
   }
 }'
 

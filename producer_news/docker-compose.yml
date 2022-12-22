@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  producer_news:
+    container_name: producer_news
+    build: .
+
+networks:
+  default:
+    external:
+      name: kafka-network

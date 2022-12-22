@@ -19,7 +19,7 @@ CREATE TABLE twitter (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE articles (
+CREATE TABLE news (
     title TEXT,
     url TEXT,
     created_at TEXT,
