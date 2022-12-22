@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  kafka_consumer:
-    container_name: consumer
+  producer_twitter:
+    container_name: producer_twitter
     build: .
 
 networks:
