@@ -11,7 +11,6 @@ services:
       - ./cassandra_data:/var/lib/cassandra
     restart: always
 
-
   cassandra-load-keyspace:
     container_name: cassandra-load-keyspace
     image: cassandra:latest

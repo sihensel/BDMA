@@ -40,13 +40,13 @@ Start the consumer and monitor incoming data with `docker logs -f consumer`.
 docker-compose -f consumer/docker-compose.yml up -d
 ```
 
-Make sure to create `producer/keys.py` and add your Twitter API keys. Then, you can start the producer:
+Make sure to create `producer_twitter/keys.py` and add your Twitter API keys. Then, you can start the producer:
 ```bash
-docker-compose -f producer/docker-compose.yml up -d
+docker-compose -f producer_twitter/docker-compose.yml up -d
 ```
 
 Sanity check that all containers are running with `docker ps -a`.<br>
-Verify the output of the producer with `docker logs -f producer`.
+Verify the output of the producer with `docker logs -f producer_twitter`.
 
 All data that gets streamed to the `twittersink` topic will be propagated to Cassandra for storage.
 
