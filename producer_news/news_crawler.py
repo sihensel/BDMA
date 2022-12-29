@@ -55,8 +55,8 @@ def GetDataframe(soup, newsPage):
         # data cleanup
         dataframe["Title"] = dataframe["Title"].str.replace("\n\t\t\t\t\t\t\t\t", "")
 
-        dataframe['Time'] = pd.to_datetime(dataframe['Time'])
-        dataframe['Time'][1].replace(tzinfo=timezone('UTC'))
+        # dataframe['Time'] = pd.to_datetime(dataframe['Time'])
+        # dataframe['Time'][1].replace(tzinfo=timezone('UTC'))
         return  dataframe
 
     elif newsPage == 'REUTERS':
@@ -83,10 +83,10 @@ def GetDataframe(soup, newsPage):
         now_EST = dt.today().astimezone(timezone('EST'))
         # data cleanup
         dataframe["Title"] = dataframe["Title"].str.replace("\n\t\t\t\t\t\t\t\t", "")
-        dataframe["Time"]  = dataframe['Time'].apply(lambda x: (str(now_EST.month) + "/" + str(now_EST.day) + "/" + str(now_EST.year) + " " + x.replace(" EST", "")) if x != None else np.nan)
-        #convert time to utc
-        dataframe['Time'] = pd.to_datetime(dataframe['Time'], format='%m/%d/%Y %I:%M%p')
-        dataframe['Time'] = dataframe['Time'] + timedelta(hours = 5)
+        # dataframe["Time"]  = dataframe['Time'].apply(lambda x: (str(now_EST.month) + "/" + str(now_EST.day) + "/" + str(now_EST.year) + " " + x.replace(" EST", "")) if x != None else np.nan)
+        # #convert time to utc
+        # dataframe['Time'] = pd.to_datetime(dataframe['Time'], format='%m/%d/%Y %I:%M%p')
+        # dataframe['Time'] = dataframe['Time'] + timedelta(hours = 5)
         return dataframe
 
     elif newsPage == 'UKRINFORM':
@@ -110,9 +110,9 @@ def GetDataframe(soup, newsPage):
             headLineArray.append([storyTitle, timeStamp, href])
         dataframe = pd.DataFrame(headLineArray, columns=["Title", "Time", "Link"])
         # data cleanup
-        dataframe['Time'] = pd.to_datetime(dataframe['Time'], format="%Y-%m-%dT%H:%M:%S%z")
-        dataframe['Time'] = pd.to_datetime(dataframe['Time'], format='%m/%d/%Y %I:%M%p')
-        dataframe['Time'] = dataframe['Time'].apply(lambda x: x.replace(tzinfo=None) if x != None else x)
+        # dataframe['Time'] = pd.to_datetime(dataframe['Time'], format="%Y-%m-%dT%H:%M:%S%z")
+        # dataframe['Time'] = pd.to_datetime(dataframe['Time'], format='%m/%d/%Y %I:%M%p')
+        # dataframe['Time'] = dataframe['Time'].apply(lambda x: x.replace(tzinfo=None) if x != None else x)
         return dataframe
 
     elif newsPage == 'THE_MOSCOW_TIMES':
@@ -135,8 +135,8 @@ def GetDataframe(soup, newsPage):
         dataframe = pd.DataFrame(headLineArray, columns=["Title", "Time", "Link"])
         # data cleanup
         dataframe["Title"] = dataframe["Title"].str.replace("\n\t\t\t", "")
-        dataframe['Time'] = pd.to_datetime(dataframe['Time'], format="%Y-%m-%dT%H:%M:%S%z")
-        dataframe['Time'] = dataframe['Time'].apply(lambda x: x.replace(tzinfo=None) if x != None else x)
+        # dataframe['Time'] = pd.to_datetime(dataframe['Time'], format="%Y-%m-%dT%H:%M:%S%z")
+        # dataframe['Time'] = dataframe['Time'].apply(lambda x: x.replace(tzinfo=None) if x != None else x)
         return dataframe
 
 
@@ -188,7 +188,8 @@ def main():
                 data = {
                     'title': article['Title'],
                     'url': article['Link'],
-                    'created_at': str(dt.fromtimestamp(float(article['Time']) / 1000.0))
+                    # 'created_at': str(dt.fromtimestamp(float(article['Time']) / 1000.0))
+                    'created_at': str(dt.now())
                 }
 
                 producer.send(TOPIC_NAME, value=data)

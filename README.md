@@ -35,8 +35,10 @@ docker compose -f kafka/docker-compose.yml up -d
 The REST-Interface between Kafka and Cassandra is available at [http://localhost:8083](http://localhost:8083).<br>
 Sinks are at [http://localhost:8083/connectors](http://localhost:8083/connectors).
 ```bash
-curl -X GET http://localhost:8083/connectors
+curl http://localhost:8083/connectors
 ```
+Make sure this returns `["twittersink","newssink"]`.<br>
+It might be necessary to manually start `usr/app/create-cassandra-sink.sh` inside the container.
 
 Start the consumer and monitor incoming data with `docker logs -f consumer`.
 ```bash
@@ -50,9 +52,9 @@ docker compose -f producer_news/docker-compose.yml up -d
 ```
 
 Sanity check that all containers are running with `docker ps -a`.<br>
-Verify the output of the producer with `docker logs -f producer_twitter`.
+Verify the output of the producers with `docker logs -f <container_name>`.
 
-All data that gets streamed to the `twittersink` topic will be propagated to Cassandra for storage.
+All data that gets streamed to the `twittersink` and `newssink` topics will be automatically propagated to Cassandra for storage.
 
 Verify that Cassandra is receiving data:
 ```bash

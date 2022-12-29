@@ -70,7 +70,7 @@ def main():
                 ],
                 expansions=['author_id'],
                 user_fields=['verified', 'created_at'],
-                max_results=10
+                max_results=100
             ).json()
 
             tweets = response['data']
