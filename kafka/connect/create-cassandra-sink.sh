@@ -16,7 +16,7 @@ curl -s \
     "topics": "twittersink",
     "contactPoints": "cassandra",
     "loadBalancing.localDc": "datacenter1",
-    "topic.twittersink.pipeline.twitter.mapping": "created_at=value.created_at, author=value.author, tweet=value.tweet, id=value.id, engagements=value.engagements, author_verified=value.author_verified, author_created_at=value.author_created_at",
+    "topic.twittersink.pipeline.twitter.mapping": "label=value.label, created_at=value.created_at, author=value.author, tweet=value.tweet, id=value.id, engagements=value.engagements, author_verified=value.author_verified, author_created_at=value.author_created_at",
     "topic.twittersink.pipeline.twitter.consistencyLevel": "LOCAL_QUORUM"
   }
 }'
