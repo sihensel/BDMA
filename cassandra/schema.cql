@@ -16,6 +16,7 @@ CREATE TABLE twitter (
     engagements INT,
     author_verified BOOLEAN,
     author_created_at TEXT,
+    label TEXT,
     PRIMARY KEY (id)
 );
 

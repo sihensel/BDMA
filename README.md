@@ -38,7 +38,7 @@ Sinks are at [http://localhost:8083/connectors](http://localhost:8083/connectors
 curl http://localhost:8083/connectors
 ```
 Make sure this returns `["twittersink","newssink"]`.<br>
-It might be necessary to manually start `usr/app/create-cassandra-sink.sh` inside the container.
+It might be necessary to manually start `usr/app/create-cassandra-sink.sh` inside the `kafka-connect` container.
 
 Start the consumer and monitor incoming data with `docker logs -f consumer`.
 ```bash
@@ -65,6 +65,27 @@ cqlsh
 
 select * from pipeline.twitter;
 select * from pipeline.news;
+```
+
+
+### Export Data From Cassandra
+
+First, connect to cassandra via `cqlsh`, as shown above.
+```bash
+COPY pipeline.twitter TO '/twitter.csv' WITH HEADER=TRUE;
+```
+
+Then, copy the .csv from the container to the host.
+```bash
+docker cp cassandra:/twitter.csv .
+```
+
+### Rebuild container
+
+The python container images need to be rebuilt after every code change.
+
+```bash
+docker compose -f <directory>/docker-compose.yml build --force-rm --no-cache
 ```
 
 

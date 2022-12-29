@@ -22,7 +22,7 @@ SLEEP_TIME = 21600
 
 # Kafka settings
 # FIXME change this later once the ML part is runnning
-TOPIC_NAME = 'twittersink'
+TOPIC_NAME = 'twitter'
 KAFKA_BROKER_URL = 'broker:9092'
 
 
@@ -86,7 +86,6 @@ def main():
                 user = [user for user in users if user['id'] == tweet['author_id']][0]
 
                 # some text cleanup
-                # FIXME should we remove URLs in tweets?
                 text = re.sub(r'@\w+', '', tweet['text'])   # remove tagged users
                 text = re.sub(r'[^\w.#:/\s]+', ' ', text)    # remove non word characters, except some
                 text = text.replace('\n', ' ')              # remove linebreaks
