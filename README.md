@@ -38,9 +38,9 @@ Sinks are at [http://localhost:8083/connectors](http://localhost:8083/connectors
 curl http://localhost:8083/connectors
 ```
 Make sure this returns `["twittersink","newssink"]`.<br>
-It might be necessary to manually start `usr/app/create-cassandra-sink.sh` inside the `kafka-connect` container.
+It might be necessary to manually start `/usr/app/create-cassandra-sink.sh` inside the `kafka-connect` container.
 
-Start the consumer and monitor incoming data with `docker logs -f consumer`.
+Start the consumer:
 ```bash
 docker compose -f consumer/docker-compose.yml up -d
 ```
