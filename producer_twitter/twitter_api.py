@@ -18,7 +18,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-SLEEP_TIME = 21600
+SLEEP_TIME = 10800
 
 # Kafka settings
 # FIXME change this later once the ML part is runnning
