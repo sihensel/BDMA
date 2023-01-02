@@ -51,6 +51,12 @@ docker compose -f producer_twitter/docker-compose.yml up -d
 docker compose -f producer_news/docker-compose.yml up -d
 ```
 
+Finally, start the dashboard container.
+```bash
+docker compose -f dashboard/docker-compose.yml up -d
+```
+The dashboard is available at [http://localhost:8050](http://localhost:8050).
+
 Sanity check that all containers are running with `docker ps -a`.<br>
 Verify the output of the producers with `docker logs -f <container_name>`.
 
