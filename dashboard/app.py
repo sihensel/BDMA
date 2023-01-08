@@ -108,9 +108,17 @@ app.layout = html.Div(
 
         # Side Bar
 
-        html.Div(
+        html.Div([
             html.P(f'''Dashboard'''),
-            className="side-bar",
+            html.A("Real and Fake Histogram", href='#histogram-label'),
+            html.Hr(),
+            html.A("Tweets Table", href='#fakeReal-tweets-input'),
+            html.Hr(),
+            html.A("Textmining", href="#textmining-id"),
+            html.Hr(),
+            html.A("News Article", href="#newsArticle-id"),
+            ]
+            ,className="side-bar"
         ),
 
         # Graphical Container Div
@@ -250,7 +258,7 @@ app.layout = html.Div(
                                 className="fake-tweets-top-hashtags-div"
                     ),
                 ],
-                className= "fake-tweets-top-hashtags-info-container"
+                className= "fake-tweets-top-hashtags-info-container", id="textmining-id"
             ),
             html.Div(
                 [
@@ -311,7 +319,7 @@ app.layout = html.Div(
                 ],
                 className= "news-info-container-right"
             )
-        ], className = 'figure-container-fourth')
+        ], className = 'figure-container-fourth', id="newsArticle-id")
     ]
 )
 
