@@ -1,0 +1,454 @@
+body {
+    background-color: #282C54;
+    font-family: arial;
+}
+
+.side-bar {
+    background-color: #13173C;
+    position: fixed;
+    height: 100%;
+    width: 20%;
+    top:0px;
+    left:0px;
+}
+.side-bar p{
+    font-size: 25px;
+    color: #fff;
+    margin-top: 6%;
+    margin-left: 10px;
+}
+
+.app-nav-bar {
+    background-color: #13173C;
+    height: 50px;
+    margin-left: 21.32%;
+    margin-right: auto;
+    border-radius: 5px;
+    text-align: auto;
+    position: fixed;
+    width: 73.6%;
+    z-index: 5;
+    margin-top: -27px;
+}
+
+#hashtag-options {
+    width: 55%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: auto;
+    position:relative;
+    top: 15%;
+    border-radius: 5px;
+    display:inline-block;
+}
+
+#language-options {
+    width: 20%;
+    height: 70%;
+    margin-left: 1.5%;
+    position:relative;
+    top: 15%;
+    border-radius: 5px;
+    display:inline-block;
+}
+
+#fakeReal-hashtag-input {
+    width: 20%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+#fakeReal-words-input {
+    width: 20%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+
+#proRussiaNewsToggleInput {
+    width: 40%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+
+#proUkraineNewsToggleInput {
+    width: 40%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+#words-slider-input{
+    width: 30%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+#hashtags-slider-input{
+    width: 30%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+#fakeReal-tweets-input {
+    width: 20%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
+.app-nav-time {
+    background-color: #282C54;
+    top: 2px;
+    width: 20%;
+    height: 70%;
+    margin-left: 1.5%;
+    position:relative;
+    border-radius: 5px;
+    display:inline-block;
+    text-align:center
+}
+
+.app-nav-time p{
+    color:  #fff;
+    position: relative;
+    top:      -6px;
+}
+
+.figure-container-first{
+    margin-left: 21.5%;
+    margin-top: 35px;
+    width: 80%;
+    margin-right: auto;
+    display: block;
+
+}
+
+.figure-container-second {
+    margin-top: 20px;
+    margin-left: 21.5%;
+    width: 80%;
+    height: 540px;
+    margin-right: auto;
+    display: block;
+}
+
+.figure-container-third {
+    margin-left: 21.5%;
+    width: 80%;
+    margin-right: auto;
+    display: block;
+}
+
+.figure-container-fourth {
+    margin-top: 27px;
+    margin-left: 21.5%;
+    width: 80%;
+    margin-right: auto;
+    display: block;
+}
+
+.figure-real-fake-tweets-container {
+    width:              30%;
+    height:             440px;
+    display:            inline-block;
+}
+
+.verified-figure-info-container {
+    width:              30%;
+    height:             440px;
+    margin-left:        25px;
+    display:            inline-block;
+}
+
+.verified-fake-figure-info-container {
+    width:              30%;
+    height:             440px;
+    margin-left:        25px;
+    display:            inline-block;
+}
+
+
+.fake-tweets-info-container {
+    width:              93%;
+    height:             520px;
+    display:            inline-block;
+}
+
+.fake-tweets-top-hashtags-info-container {
+    width:              46.5%;
+    height:             440px;
+    top: 15px;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.news-info-container {
+    width:              46.5%;
+    height:             440px;
+    margin-left: auto;
+    display: inline-block;
+}
+
+
+.news-info-container-right {
+    width:              46.5%;
+    height:             440px;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.figure-real-fake-tweets {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    top: 15px;
+    height: 300px;
+    border-radius:      5px;
+    position:           relative;
+}
+
+.fake-tweets-div {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    height: 500px;
+    border-radius:      5px;
+}
+
+.fake-tweets-top-hashtags-div {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    top: -16px;
+    height: 470px;
+    margin: auto 0;
+    border-radius:      5px;
+    position:           relative;
+}
+
+.news-div-left {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    top: -16px;
+    height: 470px;
+    margin: auto 0;
+    border-radius:      5px;
+    position:           relative;
+}
+.news-div-right {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    top: 10px;
+    height: 470px;
+    margin: 0 auto;
+    border-radius:      5px;
+    position:           relative;
+}
+
+.news-div-left p{
+    color: #fff;
+    position:relative;
+    top: 10%;
+    left: 10px;
+}
+
+.news-div-right p{
+    color: #fff;
+    position:relative;
+    top: 10%;
+    left: 10px;
+}
+
+
+
+.fake-tweets-div p{
+    color: #fff;
+    position:relative;
+    top: 35px;
+    left: 10px;
+}
+
+.fake-tweets-top-hashtags-div p{
+    color: #fff;
+    position:relative;
+    top: 10%;
+    left: 10px;
+}
+
+
+.fake-tweets-div-inside {
+    top: 100px;
+}
+
+/* #fake-tweets-list li{
+    margin:0 20px 20px 0; 
+    width:100px;
+    vertical-align:top;
+} */
+
+.verified-figure-info {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    top: 15px;
+    height: 300px;
+    border-radius:      5px;
+    position:           relative;
+}
+
+.verified-fake-figure-info {
+    color:            #fff;
+    background-color: #13173C;
+    width: 100%;
+    top: 15px;
+    height: 300px;
+    border-radius:      5px;
+    position:           relative;
+}
+
+.fake-tweets-figure-info {
+    color:            #fff;
+    background-color: #13173C;
+    width:              100%;
+    top:                15px;
+    height:             300px;
+    border-radius:      5px;
+    position:           relative;
+}
+
+.figure-real-fake-tweets p{
+    color: #fff;
+    position:relative;
+    top: 10%;
+    left: 10px;
+}
+
+.verified-figure-info p{
+    color: #fff;
+    position:relative;
+    top: 10%;
+    left: 10px;
+}
+
+.verified-fake-figure-info p{
+    color: #fff;
+    position:relative;
+    top: 10%;
+    left: 10px;
+}
+
+#histogram-label {
+    margin: 0 auto;
+    width:100%;
+    height:100%;
+    position: relative;
+    top: -20px;
+}
+
+#verifiedFigure{
+    margin: 0 auto;
+    width:100%;
+    height:100%;
+    position: relative;
+    top: -20px;
+}
+
+#verifiedFakeFigure{
+    margin: 0 auto;
+    width:100%;
+    height:100%;
+    position: relative;
+    top: -20px;
+}
+
+#fake-tweets-list{
+    margin: 0 auto;
+    top:0px;
+    width:100%;
+    height:100%;
+    position: relative;
+    top: -20px;
+}
+
+
+/* #russiaNewsList{
+    margin: 0 auto;
+    top:0px;
+    width:100%;
+    height:100%;
+    position: relative;
+    top: -20px;
+} */
+
+.figure-real-fake-tweets-info-left {
+    color:            #fff;
+    background-color: #13173C;
+    width:              49.5%;
+    top:                19px;
+    margin:             0 auto;
+    height:             120px;
+    border-radius:      5px;
+    position:           relative;
+    display:            inline-block;
+}
+
+.figure-real-fake-tweets-info-left p{
+    color:            #fff;
+    position:           relative;
+    left:               10px;
+}
+
+.figure-real-fake-tweets-info-right {
+    color:            #fff;
+    background-color: #13173C;
+    width:              49.5%;
+    top:                19px;
+    left:               1%;
+    height:             120px;
+    border-radius:      5px;
+    position:           relative;
+    display:            inline-block;
+}
+
+.figure-real-fake-tweets-info-right p{
+    color:    #fff;
+    position:   relative;
+    left:       10px;
+}
