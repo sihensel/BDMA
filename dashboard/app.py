@@ -38,6 +38,8 @@ for index, row in df_news.iterrows():
 
 df_news['NewsSource'] = newsSourceList
 
+df_news['urlMarkDown'] = df_news['url'].apply(lambda x: "<a href='" + x + "' target='_blank'>Link</a>" if str(x) != None else "")
+
 # -----------------#
 
 def extract_date(date_str: str):
@@ -60,9 +62,8 @@ hashtags = [
     '#RussiaIsATerroristState'
 ]
 
-language = [
-    'English',
-    'German'
+dateselection = [
+    'date selection'
 ]
 
 fakeRealToggle = [
@@ -84,6 +85,7 @@ proUkrainNewsToggle = [
 
 app.layout = html.Div(
     [
+        html.Div(id='top'),
         # Navigation Bar
         html.Div(
             [
@@ -92,8 +94,9 @@ app.layout = html.Div(
                          value=hashtags[0],
                          placeholder='Please select a hashtag...', 
                          ),
-            dcc.Dropdown(language,
-                         'English',
+            dcc.Dropdown(dateselection,
+                         placeholder='Date',
+                         disabled = True,
                          id='language-options', 
                          ),
             html.Div
@@ -110,13 +113,15 @@ app.layout = html.Div(
 
         html.Div([
             html.P(f'''Dashboard'''),
-            html.A("Real and Fake Histogram", href='#histogram-label'),
+            html.Div([
+            html.A("Real and Fake Histogram", href='#top'),
             html.Hr(),
-            html.A("Tweets Table", href='#fakeReal-tweets-input'),
+            html.A("Tweets Table", href='#section-two'),
             html.Hr(),
-            html.A("Textmining", href="#textmining-id"),
+            html.A("Textmining", href="#section-three"),
             html.Hr(),
-            html.A("News Article", href="#newsArticle-id"),
+            html.A("News Article", href="#section-four")
+            ], className='side-bar-menue')
             ]
             ,className="side-bar"
         ),
@@ -210,7 +215,7 @@ app.layout = html.Div(
         ]
         , className = 'figure-container-first'
         ),
-
+        html.Div(id='section-two'),
         # Graphical Container Div the Second
         html.Div([
             # Real and fake tweets Figure
@@ -222,19 +227,21 @@ app.layout = html.Div(
                                 dcc.Dropdown(id='fakeReal-tweets-input', 
                                 options=fakeRealToggle,
                                 value=fakeRealToggle[0], 
-                                style={'color':'black'}
+                                style={'color':'black', 'height':'0px'}
                                 ),
-                                html.Div(html.Div(id='fake-tweets-list'), style={'position':'relative', 'top': '-250px', 'z-index':'2'})
+                                html.Div(html.Div(id='fake-tweets-list'), style={'position':'relative', 'top': '75px', 'z-index':'2'})
                                 
                             ],
                                 className="fake-tweets-div"
                     ),
+                    html.Div(id='section-three'),
                 ],
                 className= "fake-tweets-info-container"
             ),
         ]
         , className ='figure-container-second'
         ),
+
     # Graphical Container Div the Third
         html.Div([
             html.Div(
@@ -245,7 +252,7 @@ app.layout = html.Div(
                                 dcc.Dropdown(id='fakeReal-hashtag-input', 
                                 options=fakeRealToggle,
                                 value=fakeRealToggle[0], 
-                                style={'color':'black'}
+                                style={'color':'black', 'height':'40px'}
                                 ),
                                 dcc.Slider(10, 20, 1, value=10, marks=None,
                                             tooltip={"placement": "bottom", "always_visible": True},
@@ -268,7 +275,7 @@ app.layout = html.Div(
                                 dcc.Dropdown(id='fakeReal-words-input', 
                                 options=fakeRealToggle,
                                 value=fakeRealToggle[0], 
-                                style={'color':'black'}
+                                style={'color':'black', 'height':'40px'}
                                 ),
                                 dcc.Slider(10, 20, 1, value=10, marks=None,
                                             tooltip={"placement": "bottom", "always_visible": True},
@@ -284,6 +291,7 @@ app.layout = html.Div(
             )
         ], className = 'figure-container-third'),
         # Graphical Container Div the Fourth
+        html.Div(id='section-four'),
         html.Div([
             html.Div(
                 [
@@ -293,9 +301,9 @@ app.layout = html.Div(
                                 dcc.Dropdown(id='proRussiaNewsToggleInput', 
                                 options=proRussianNewsToggle,
                                 value=proRussianNewsToggle[0], 
-                                style={'color':'black'}
+                                style={'color':'black', 'height':'0px'}
                                 ),
-                                html.Div(html.Div(id='russiaNewsList'), style={'position':'relative', 'top': '-270px', 'z-index':'2'})
+                                html.Div(html.Div(id='russiaNewsList'), style={'position':'relative', 'top': '50px', 'z-index':'2'})
                             ],
                                 className="news-div-left"
                     ),
@@ -310,9 +318,9 @@ app.layout = html.Div(
                                 dcc.Dropdown(id='proUkraineNewsToggleInput', 
                                 options=proUkrainNewsToggle,
                                 value=proUkrainNewsToggle[0], 
-                                style={'color':'black'}
+                                style={'color':'black', 'height':'0px'}
                                 ),             
-                                html.Div(html.Div(id='ukraineNewsList'), style={'position':'relative', 'top': '-270px', 'z-index':'2'})
+                                html.Div(html.Div(id='ukraineNewsList'), style={'position':'relative', 'top': '50px', 'z-index':'2'})
                             ],
                                 className="news-div-right", style={'margin-left': '1%'}
                     ),
@@ -431,7 +439,7 @@ def set_hashtag(hashtag,
                 'whiteSpace': 'normal',
                 'height': 'auto',
                 'textAlign': 'left',
-                'color': 'grey',
+                'color': 'white',
                 'background': 'black',
                 'font-size': '17px',
                 'backgroundColor': 'rgba(0,0,0,0)'
@@ -479,18 +487,27 @@ def set_hashtag(hashtag,
     df_russianNews = df_news[df_news['NewsSource']==str(proRussiaNewsToggleInput)]
 
     russianNewsList =  html.Div(
-        children=[dash_table.DataTable(df_russianNews[['title']].to_dict('records'),[{"name": i, "id": i} for i in df_russianNews[['title', 'created_at']]], 
+        children=[dash_table.DataTable(
+        data    = df_russianNews[['title', 'urlMarkDown']].to_dict('records'),
+        columns = [{'id': i, 'name': i, 'presentation': 'markdown'} if i == 'urlMarkDown' else {"name": i, "id": i, 'presentation': 'markdown'} for i in df_russianNews.loc[:,['title', 'urlMarkDown']]],
+        markdown_options={"html": True},
         style_header={'display': 'none'},
         style_table={'height': '330px', 'width':'90%', 'overflowY': 'auto',  'left': '5%','display': 'inline-block'},
         style_data={
             'whiteSpace': 'normal',
             'height': 'auto',
             'textAlign': 'left',
-            'color': 'grey',
+            'color': 'white',
             'background': 'black',
             'font-size': '17px',
             'backgroundColor': 'rgba(0,0,0,0)'
     }, 
+    style_cell_conditional=[
+        {'if': {'column_id': 'title'},
+         'width': '80%'},
+        {'if': {'column_id': 'urlMarkdown'},
+         'width': '20%'},
+    ],
     page_size=25,
     )
     ])
@@ -499,8 +516,8 @@ def set_hashtag(hashtag,
 
     ukrainNewsList =  html.Div(
         children=[dash_table.DataTable(
-            data    = df_ukrainNews[['title', 'url']].to_dict('records'),
-            columns = [{'id': i, 'name': i} if i == 'url' else {"name": i, "id": i} for i in df_ukrainNews.loc[:,['title', 'url']]], # 'presentation': 'markdown'
+            data    = df_ukrainNews[['title', 'urlMarkDown']].to_dict('records'),
+            columns = [{'id': i, 'name': i, 'presentation': 'markdown'} if i == 'urlMarkDown' else {"name": i, "id": i, 'presentation': 'markdown'} for i in df_ukrainNews.loc[:,['title', 'urlMarkDown']]],
             markdown_options={"html": True},
             style_header={'display': 'none'},
             style_table={'height': '330px', 'width':'90%', 'overflowY': 'auto',  'left': '5%', 'display': 'inline-block'},
@@ -508,14 +525,18 @@ def set_hashtag(hashtag,
             'whiteSpace': 'normal',
             'height': 'auto',
             'textAlign': 'left',
-            'color': 'grey',
+            'color': 'white',
             'background': 'black',
             'font-size': '17px',
             'backgroundColor': 'rgba(0,0,0,0)'
+            
     }, 
-    style_cell={
-        'maxWidth': 5
-    },
+    style_cell_conditional=[
+        {'if': {'column_id': 'title'},
+         'width': '80%'},
+        {'if': {'column_id': 'urlMarkdown'},
+         'width': '20%'},
+    ],
     page_size=25,
     )
     ])
