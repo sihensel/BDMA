@@ -143,6 +143,17 @@ body {
     z-index: 4;
 }
 
+#fakeReal-date-tweets-input {
+    width: 20%;
+    height: 70%;
+    margin-left: 1%;
+    margin-right: 2%;
+    position:relative;
+    border-radius: 5px;
+    float:right;
+    z-index: 4;
+}
+
 #tweetSearch {
     width: 60%;
     height: 30px;

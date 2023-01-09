@@ -341,8 +341,13 @@ app.layout = html.Div(
                     html.Div(
                             [
                                 html.P(f'''Account creation date of users posting fake tweets'''),
+                                dcc.Dropdown(id='fakeReal-date-tweets-input', 
+                                options=fakeRealToggle,
+                                value=fakeRealToggle[0], 
+                                style={'color':'black', 'height':'0px'}
+                                ),
                                 html.Div(dcc.Graph(id='histogram-fake-authors'), style={'position':'relative', 
-                                                                                        'top': '15px'}),
+                                                                                        'top': '40px', 'height': '450px'}),
                                 dcc.RangeSlider(min=2007, max=2023,value=[2019,2023], step=1, marks=None,
                                             tooltip={"placement": "bottom", "always_visible": True}, id='dateSlider-input',)
                             ], style={'height': '540px'},
@@ -392,6 +397,7 @@ app.layout = html.Div(
     Input('fakeReal-words-input', 'value'),
     Input('proRussiaNewsToggleInput', 'value'),
     Input('proUkraineNewsToggleInput', 'value'),
+    Input('fakeReal-date-tweets-input', 'value'),
     Input('dateSlider-input', 'value')
 
 
@@ -406,6 +412,7 @@ def set_hashtag(tweetSearch,
                 fakeRealWords, 
                 proRussiaNewsToggleInput,
                 proUkraineNewsToggleInput,
+                fakeRealDateTweetsInput,
                 dateSliderInput):
 
     
@@ -574,7 +581,7 @@ def set_hashtag(tweetSearch,
     ])
 
     df_author = df_twitter[df_twitter["tweet"].str.contains(hashtag.lower())]
-    df_author = df_author[df_author["label"].str.match("fake")]
+    df_author = df_author[df_author["label"].str.match(fakeRealDateTweetsInput)]
     df_author['author_create_at_year_month'] = df_author['author_created_at'].apply(lambda x: x[0:7]if x != None else "")
     df_author = df_author["author_create_at_year_month"].value_counts()
     df_author = df_author.rename_axis('author_create_at_year_month').to_frame('count')
@@ -585,7 +592,8 @@ def set_hashtag(tweetSearch,
         df_author[(df_author['author_created_at_year'] >= dateSliderInput[0]) & (df_author['author_created_at_year'] <= dateSliderInput[1])],
         x="author_create_at_year_month",
         y="count",
-        color="count"
+        color="count",
+        height=440,
     ).update_layout(
         xaxis_title="Date",
         yaxis_title="Count",
