@@ -9,16 +9,17 @@ import time
 # Self written
 # from FuncWordcloud import GetWordCloud
 from textmining import GetTopHashtagsData, GetTopWordsData
+from utils import load_from_cassandra
 
 ### import data ### 
 
 # import data from cassandra
-# df_twitter = load_from_cassandra("twitter")
-# df_news = load_from_cassandra("news")
+df_twitter = load_from_cassandra("twitter")
+df_news = load_from_cassandra("news")
 
-# local testing
-df_twitter = pd.read_csv("./dashboard/data/twitter_labeled.csv")
-df_news = pd.read_csv("./dashboard/data/news.csv")
+# uncomment for local testing
+# df_twitter = pd.read_csv("./dashboard/data/twitter_labeled.csv")
+# df_news = pd.read_csv("./dashboard/data/news.csv")
 
 # -----------------#
 
@@ -630,4 +631,4 @@ def set_hashtag(tweetSearch,
 # -----------------#
 
 if __name__ == '__main__':
-    app.run_server(debug=False)
+    app.run_server(host='0.0.0.0', debug=False)
