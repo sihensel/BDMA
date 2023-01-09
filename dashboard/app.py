@@ -200,14 +200,14 @@ app.layout = html.Div(
                     ),
                     html.Div(
                         [
-                                html.P(f'''Verfied users count'''),
+                                html.P(f'''Unverfied users count'''),
                                 html.P(id='verfiedFakeUsersValue', style={'font-size': '25px'}),
                         ]
                         , className="figure-real-fake-tweets-info-left"
                     ),
                     html.Div(
                         [
-                                html.P(f'''Unverfied users count'''),
+                                html.P(f'''Verfied users count'''),
                                 html.P(id='unverfiedFakeUsersValue', style={'font-size': '25px'}),
                         ]
                         , className="figure-real-fake-tweets-info-right"
@@ -630,4 +630,4 @@ def set_hashtag(tweetSearch,
 # -----------------#
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
