@@ -11,6 +11,14 @@ body {
     top:0px;
     left:0px;
 }
+
+
+.side-bar-menue a{
+    margin-left: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+
 .side-bar p{
     font-size: 25px;
     color: #fff;
@@ -30,6 +38,10 @@ body {
     z-index: 5;
     margin-top: -27px;
 }
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
+    --hover: #282C54 !important;
+  }
 
 #hashtag-options {
     width: 55%;
@@ -100,7 +112,7 @@ body {
 
 #words-slider-input{
     width: 30%;
-    height: 70%;
+    height: 1px;
     margin-left: 1%;
     margin-right: 2%;
     position:relative;
@@ -111,7 +123,7 @@ body {
 
 #hashtags-slider-input{
     width: 30%;
-    height: 70%;
+    height: 1px;
     margin-left: 1%;
     margin-right: 2%;
     position:relative;
