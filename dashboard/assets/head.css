@@ -34,7 +34,7 @@ body {
     border-radius: 5px;
     text-align: auto;
     position: fixed;
-    width: 73.6%;
+    width: 74.4%;
     z-index: 5;
     margin-top: -27px;
 }
@@ -204,6 +204,19 @@ body {
     display: block;
 }
 
+.figure-container-five {
+    margin-top: 27px;
+    margin-left: 21.5%;
+    width: 80%;
+    margin-right: auto;
+    display: block;
+}
+
+#dateSlider-input {
+    width: 80%;
+    margin: 0 auto;
+}
+
 .figure-real-fake-tweets-container {
     width:              30%;
     height:             440px;
@@ -226,7 +239,7 @@ body {
 
 
 .fake-tweets-info-container {
-    width:              93%;
+    width:              93.5%;
     height:             520px;
     display:            inline-block;
 }
