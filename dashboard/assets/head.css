@@ -143,6 +143,16 @@ body {
     z-index: 4;
 }
 
+#tweetSearch {
+    width: 60%;
+    height: 30px;
+    position:relative;
+    float: left;
+    left: 10%;
+    border-radius: 5px;
+    z-index: 4;
+}
+
 .app-nav-time {
     background-color: #282C54;
     top: 2px;

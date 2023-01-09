@@ -229,7 +229,8 @@ app.layout = html.Div(
                                 value=fakeRealToggle[0], 
                                 style={'color':'black', 'height':'0px'}
                                 ),
-                                html.Div(html.Div(id='fake-tweets-list'), style={'position':'relative', 'top': '75px', 'z-index':'2'})
+                                dcc.Input(id="tweetSearch", type="text", placeholder="Search Tweets", style={'marginRight':'10px'}),
+                                html.Div(html.Div(id='fake-tweets-list'), style={'position':'relative', 'top': '65px', 'z-index':'2'})
                                 
                             ],
                                 className="fake-tweets-div"
@@ -356,6 +357,7 @@ app.layout = html.Div(
     Output('russiaNewsList', 'children'),
     Output('ukraineNewsList', 'children'),
 
+    Input('tweetSearch', 'value'),
     Input('hashtag-options', 'value'),
     Input('fakeReal-tweets-input', 'value'),
     Input('hashtags-slider-input', 'value'),
@@ -368,7 +370,8 @@ app.layout = html.Div(
 
 
 )
-def set_hashtag(hashtag, 
+def set_hashtag(tweetSearch,
+                hashtag, 
                 fakeRealTweets, 
                 sliderHashtagsValue, 
                 fakeRealHashtag, 
@@ -429,6 +432,8 @@ def set_hashtag(hashtag,
     verifiedFakeFigureUsersValue = df_temp2[df_temp2['author_verified'] == True].count()
 
     df_temp3 = df_temp[(df_temp["label"] == fakeRealTweets)]
+    if(tweetSearch != None):
+        df_temp3 = df_temp3[df_temp3['tweet'].str.contains(str(tweetSearch).lower())]
 
     fakeTweetDiv = html.Div(
         children=[
@@ -448,8 +453,7 @@ def set_hashtag(hashtag,
           )
             ],
         )
-    # encoded_image = base64.b64encode(open(GetWordCloud(df_temp3), 'rb').read())
-    # fakeTweetWordCloudDiv = html.Div([html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()))])
+
     topHashtagsDataToggle = df_temp[(df_temp["label"] == fakeRealHashtag)]
     
     topHashtagsData = (GetTopHashtagsData(topHashtagsDataToggle, hashtag.lower(), sliderHashtagsValue))
