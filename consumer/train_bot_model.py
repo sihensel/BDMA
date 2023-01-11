@@ -9,7 +9,7 @@ from train_model import print_metrices
 def train_bot_model():
     # labeled data from:
     # https://github.com/RohanBhirangi/Twitter-Bot-Detection/blob/master/kaggle_train.csv
-    df = pd.read_csv("/home/simon/Downloads/bot_kaggle_train.csv")
+    df = pd.read_csv("/home/simon/Downloads/data/bot_train.csv")
 
     X = df[[
         'followers_count',
