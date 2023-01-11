@@ -28,6 +28,7 @@ def clean(string):
     text = re.sub(r"[^0-9a-zA-Z]+", " ", text)
     text = text.split()
     text = [w for w in text if w not in stop]
+    text = [w for w in text if not w.startswith('#')]
     text = " ".join(text)
     return text
 
@@ -38,26 +39,27 @@ def print_metrices(pred, true):
     print(classification_report(true, pred))
     print("Accuracy:\t", accuracy_score(pred, true))
     print("Precison:\t", precision_score(pred, true, average="weighted"))
-    print("Recall:\t", recall_score(pred, true, average="weighted"))
-    print("F1:\t", f1_score(pred, true, average="weighted"))
+    print("Recall:\t\t", recall_score(pred, true, average="weighted"))
+    print("F1:\t\t", f1_score(pred, true, average="weighted"))
 
 
 def train_model():
     # labeled data from https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification
     # import data
-    df = pd.read_csv("/home/simon/Downloads/WELFake_Dataset.csv")
-    df["text"] = df["text"].astype(str)
-    df.drop(["title"], axis=1, inplace=True)
+    df = pd.read_csv("~/Downloads/WELFake_Dataset.csv")
+    # df["text"] = df["text"].astype(str)
+    df["title"] = df["title"].astype(str)
+    # df.drop(["title"], axis=1, inplace=True)
 
     # clean data
-    df["text"] = df["text"].map(lambda x: clean(x))
+    df["title"] = df["title"].map(lambda x: clean(x))
 
     df = shuffle(df)
     df = df.reset_index(drop=True)
 
     # split the data
     X_train, X_test, y_train, y_test = train_test_split(
-        df["text"],
+        df["title"],
         df["label"],
         test_size=0.2,
         random_state=42
