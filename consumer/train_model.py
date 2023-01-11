@@ -1,36 +1,14 @@
 import pickle
-import re
-
-import nltk
-from nltk.corpus import stopwords
-
 import pandas as pd
-
-from sklearn import tree
-from sklearn.utils import shuffle
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, recall_score, precision_score
 from sklearn.metrics import f1_score, classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import PassiveAggressiveClassifier
 
-
-def clean(string):
-    """ Clean the provided string """
-    stop = stopwords.words("english")
-
-    text = string.lower().split()
-    text = " ".join(text)
-    text = re.sub(r"http(\S)+", " ", text)
-    text = re.sub(r"www(\S)+", " ", text)
-    text = re.sub(r"&", " and ", text)
-    text = re.sub(r"[^0-9a-zA-Z]+", " ", text)
-    text = text.split()
-    text = [w for w in text if w not in stop]
-    text = [w for w in text if not w.startswith('#')]
-    text = " ".join(text)
-    return text
+from consumer import clean
 
 
 def print_metrices(pred, true):
@@ -44,18 +22,18 @@ def print_metrices(pred, true):
 
 
 def train_model():
-    # labeled data from https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification
-    # import data
-    df = pd.read_csv("~/Downloads/WELFake_Dataset.csv")
-    # df["text"] = df["text"].astype(str)
+    # labeled data from:
+    # https://github.com/Sairamvinay/Fake-News-Dataset/blob/master/fake-news/train_clean.csv
+    df = pd.read_csv("~/Downloads/data/train_twitter.csv")
+
+    # train on news article titles, as they come closer to tweets
     df["title"] = df["title"].astype(str)
-    # df.drop(["title"], axis=1, inplace=True)
 
     # clean data
     df["title"] = df["title"].map(lambda x: clean(x))
 
-    df = shuffle(df)
-    df = df.reset_index(drop=True)
+    # invert labels: 0 = fake; 1 = real
+    df["label"] = df["label"].map({1: 0, 0: 1})
 
     # split the data
     X_train, X_test, y_train, y_test = train_test_split(
@@ -69,7 +47,7 @@ def train_model():
     pipe = Pipeline([
         ("bow", CountVectorizer()),
         ("tfidf", TfidfTransformer()),
-        ("classifier", tree.DecisionTreeClassifier())
+        ("classifier", PassiveAggressiveClassifier(max_iter=50))
     ])
 
     pipe.fit(X_train, y_train)
@@ -77,12 +55,10 @@ def train_model():
 
     print_metrices(prediction, y_test)
 
-    # export trained model
+    # # export trained model
     with open("model.pkl", "wb") as fp:
         pickle.dump(pipe, fp)
 
 
 if __name__ == "__main__":
-    nltk.download("stopwords")
-
     train_model()
