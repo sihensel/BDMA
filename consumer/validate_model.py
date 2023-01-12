@@ -23,7 +23,7 @@ def validate_bot_model():
         "followers_count",
         "friends_count",
         "listedcount",
-        "favourites_count",
+        # "favourites_count",
         "statuses_count",
         "verified"
     ]]
@@ -31,26 +31,6 @@ def validate_bot_model():
 
     prediction = clf.predict(attr)
     print_metrices(prediction, label)
-
-    """
-    Results:
-
-    [[1146   30]
-     [  46 1008]]
-                  precision    recall  f1-score   support
-
-               0       0.96      0.97      0.97      1176
-               1       0.97      0.96      0.96      1054
-
-        accuracy                           0.97      2230
-       macro avg       0.97      0.97      0.97      2230
-    weighted avg       0.97      0.97      0.97      2230
-
-    Accuracy:	 0.9659192825112107
-    Precison:	 0.966049385181528
-    Recall:		 0.9659192825112107
-    F1:		 0.9659344727436712
-    """
 
 
 def validate_model():
@@ -69,24 +49,6 @@ def validate_model():
 
     prediction = pipe.predict(attr)
     print_metrices(prediction, label)
-
-    """ The model is really good at detecting fake tweets, but not at identifying real ones
-    [[8389 1338]
-     [ 405   69]]
-                  precision    recall  f1-score   support
-
-               0       0.95      0.86      0.91      9727
-               1       0.05      0.15      0.07       474
-
-        accuracy                           0.83     10201
-       macro avg       0.50      0.50      0.49     10201
-    weighted avg       0.91      0.83      0.87     10201
-
-    Accuracy:	 0.8291343985883737
-    Precison:	 0.7635678376562518
-    Recall:		 0.8291343985883737
-    F1:		 0.7910623380561452
-    """
 
 
 if __name__ == "__main__":

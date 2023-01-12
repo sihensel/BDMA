@@ -12,12 +12,12 @@ def train_bot_model():
     df = pd.read_csv("/home/simon/Downloads/data/bot_train.csv")
 
     X = df[[
-        'followers_count',
-        'friends_count',
-        'listedcount',
-        'favourites_count',
-        'statuses_count',
-        'verified'
+        'followers_count',      # users that are following the user
+        'friends_count',        # users the user is following
+        'listedcount',          # number of lists that the user is a member of
+        # 'favourites_count',     # amount of tweets the user liked -> removed from Twitter API
+        'statuses_count',       # amount of tweets the users created
+        'verified'              # whether the user is verified
     ]]
     Y = df[['bot']]
 

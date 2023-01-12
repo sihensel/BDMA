@@ -21,7 +21,6 @@ logger.setLevel(logging.INFO)
 SLEEP_TIME = 10800
 
 # Kafka settings
-# FIXME change this later once the ML part is runnning
 TOPIC_NAME = 'twitter'
 KAFKA_BROKER_URL = 'broker:9092'
 
@@ -69,7 +68,7 @@ def main():
                     'public_metrics'
                 ],
                 expansions=['author_id'],
-                user_fields=['verified', 'created_at'],
+                user_fields=['verified', 'created_at', 'public_metrics'],
                 max_results=100
             ).json()
 
@@ -98,8 +97,12 @@ def main():
                     'author': tweet['author_id'],
                     'created_at': str(tweet['created_at']),
                     'engagements': sum(tweet['public_metrics'].values()),
-                    'author_verified': str(user['verified']),
                     'author_created_at': user['created_at'],
+                    'verified': user['verified'],
+                    'followers_count': user["public_metrics"]["followers_count"],
+                    'friends_count': user["public_metrics"]["following_count"],
+                    'statuses_count': user["public_metrics"]["tweet_count"],
+                    'listedcount': user["public_metrics"]["listed_count"]
                 }
 
                 producer.send(TOPIC_NAME, value=data)
