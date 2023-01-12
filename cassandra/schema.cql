@@ -14,9 +14,14 @@ CREATE TABLE twitter (
     tweet TEXT,
     author TEXT,
     engagements INT,
-    author_verified BOOLEAN,
+    verified TEXT,
     author_created_at TEXT,
     label TEXT,
+    followers_count INT,
+    friends_count INT,
+    statuses_count INT,
+    listedcount INT,
+    bot INT,
     PRIMARY KEY (id)
 );
 

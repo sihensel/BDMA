@@ -3,6 +3,7 @@ import logging
 import pickle
 import re
 import nltk
+import pandas as pd
 from nltk.corpus import stopwords
 from kafka import KafkaConsumer, KafkaProducer
 
@@ -48,13 +49,21 @@ def main():
         api_version=(0, 10, 1)
     )
 
+    # load models
     with open("model.pkl", "rb") as fp:
         model = pickle.load(fp)
 
+    with open("model_bot.pkl", "rb") as fp:
+        bot_model = pickle.load(fp)
+
+    # start consumer
     for msg in consumer:
+
         data = json.loads(msg.value.decode("utf-8"))
 
         tweet = clean(data["tweet"])
+
+        # predict whether the tweet is fake
         result = model.predict([tweet])[0]
 
         # 0 = fake; 1 = real
@@ -64,6 +73,20 @@ def main():
             data["label"] = "real"
 
         data["tweet"] = tweet
+
+        df = pd.DataFrame(data, index=[0])
+        attr = df[[
+            "followers_count",
+            "friends_count",
+            "listedcount",
+            # "favourites_count",
+            "statuses_count",
+            "verified"
+        ]]
+
+        # predict whether the account is a bot
+        # 0 = human; 1 = bot
+        data["bot"] = int(bot_model.predict(attr)[0])
 
         producer.send(TWITTER_SINK_TOPIC, value=data)
 
