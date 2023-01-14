@@ -21,7 +21,8 @@ CREATE TABLE twitter (
     friends_count INT,
     statuses_count INT,
     listedcount INT,
-    bot INT,
+    author_location TEXT,
+    bot TEXT,
     PRIMARY KEY (id)
 );
 

@@ -66,11 +66,11 @@ def main():
         # predict whether the tweet is fake
         result = model.predict([tweet])[0]
 
-        # 0 = fake; 1 = real
+        # 0 = real; 1 = fake
         if result == 0:
-            data["label"] = "fake"
-        elif result == 1:
             data["label"] = "real"
+        elif result == 1:
+            data["label"] = "fake"
 
         data["tweet"] = tweet
 

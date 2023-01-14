@@ -73,17 +73,19 @@ select * from pipeline.twitter;
 select * from pipeline.news;
 ```
 
-
-### Export Data From Cassandra
+### Import/Export Data From Cassandra
 
 First, connect to cassandra via `cqlsh`, as shown above.
 ```bash
 COPY pipeline.twitter TO '/twitter.csv' WITH HEADER=TRUE;
+COPY pipeline.twitter (columns) FROM '/twitter.csv' WITH HEADER=TRUE;
 ```
+Get the sequence of columns with `head -n 1 twitter.csv`.
 
-Then, copy the .csv from the container to the host.
+Copy the .csv between the container and the host.
 ```bash
 docker cp cassandra:/twitter.csv .
+docker cp twitter.csv cassandra:/twitter.csv
 ```
 
 ### Rebuild container

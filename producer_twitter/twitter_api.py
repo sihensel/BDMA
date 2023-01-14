@@ -68,7 +68,7 @@ def main():
                     'public_metrics'
                 ],
                 expansions=['author_id'],
-                user_fields=['verified', 'created_at', 'public_metrics'],
+                user_fields=['verified', 'created_at', 'public_metrics', 'location'],
                 max_results=100
             ).json()
 
@@ -102,7 +102,8 @@ def main():
                     'followers_count': user["public_metrics"]["followers_count"],
                     'friends_count': user["public_metrics"]["following_count"],
                     'statuses_count': user["public_metrics"]["tweet_count"],
-                    'listedcount': user["public_metrics"]["listed_count"]
+                    'listedcount': user["public_metrics"]["listed_count"],
+                    'author_location': user["location"] if "location" in user.keys() else "N/A"
                 }
 
                 producer.send(TOPIC_NAME, value=data)
