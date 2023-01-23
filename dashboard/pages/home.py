@@ -27,8 +27,8 @@ df_twitter = load_from_cassandra("twitter")
 df_news = load_from_cassandra("news")
 
 # uncomment for local testing
-df_twitter = pd.read_csv("././dashboard/data/twitter_labeled.csv", on_bad_lines='skip')
-df_news = pd.read_csv("././dashboard/data/news.csv", on_bad_lines='skip')
+# df_twitter = pd.read_csv("././dashboard/data/twitter_labeled.csv", on_bad_lines='skip')
+# df_news = pd.read_csv("././dashboard/data/news.csv", on_bad_lines='skip')
 
 df_twitter = df_twitter[df_twitter['tweet'] != "real"]
 df_twitter = df_twitter[df_twitter['tweet'] != "fake"]
