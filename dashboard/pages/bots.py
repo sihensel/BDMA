@@ -17,9 +17,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from pathlib import Path
 
 # Create path
-PARENT_PATH = str(Path().resolve()) + "\\"
-PATH = "dashboard\\data\\"
-SUBPATH = "ukraine_geojson-master\\"
+PARENT_PATH = str(Path().resolve()) + "/"
+PATH = "data/"
+SUBPATH = "ukraine_geojson-master/"
 FILE = "UA_FULL_Ukraine"
 FORMAT = ".json"
 

@@ -35,9 +35,9 @@ df_twitter = df_twitter[df_twitter['tweet'] != "fake"]
 
 
 # Create path
-PARENT_PATH = str(Path().resolve()) + "\\"
-PATH = "dashboard\\data\\"
-SUBPATH = "ukraine_geojson-master\\"
+PARENT_PATH = str(Path().resolve()) + "/"
+PATH = "data/"
+SUBPATH = "ukraine_geojson-master/"
 FILE = "UA_FULL_Ukraine"
 FORMAT = ".json"
 
