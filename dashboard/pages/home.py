@@ -12,6 +12,9 @@ import geopandas as gpd
 import getgraphs
 import dash_bootstrap_components as dbc
 
+from pathlib import Path
+
+
 # Self written
 #from textmining import GetTopHashtagsData, GetTopWordsData
 
@@ -24,15 +27,21 @@ df_twitter = load_from_cassandra("twitter")
 df_news = load_from_cassandra("news")
 
 # uncomment for local testing
-# df_twitter = pd.read_csv("././dashboard/data/twitter_labeled.csv", on_bad_lines='skip')
-# df_news = pd.read_csv("././dashboard/data/news.csv", on_bad_lines='skip')
+df_twitter = pd.read_csv("././dashboard/data/twitter_labeled.csv", on_bad_lines='skip')
+df_news = pd.read_csv("././dashboard/data/news.csv", on_bad_lines='skip')
 
 df_twitter = df_twitter[df_twitter['tweet'] != "real"]
 df_twitter = df_twitter[df_twitter['tweet'] != "fake"]
 
 
-fp = r"C:\Users\Sven\Downloads\ukraine_geojson-master\ukraine_geojson-master\UA_FULL_Ukraine.json"
-df_map = gpd.read_file(fp)
+# Create path
+PARENT_PATH = str(Path().resolve()) + "\\"
+PATH = "dashboard\\data\\"
+SUBPATH = "ukraine_geojson-master\\"
+FILE = "UA_FULL_Ukraine"
+FORMAT = ".json"
+
+df_map = gpd.read_file(PARENT_PATH + PATH + SUBPATH + FILE + FORMAT)
 
 df_twitter.created_at = pd.to_datetime(df_twitter.created_at)
 df_news.created_at = pd.to_datetime(df_news.created_at)    

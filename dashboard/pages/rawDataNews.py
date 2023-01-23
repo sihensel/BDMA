@@ -23,7 +23,7 @@ from utils import load_from_cassandra
 ### import data ### 
 
 # import data from cassandra
-df_twitter = load_from_cassandra("twitter")
+# df_twitter = load_from_cassandra("twitter")
 df_news = load_from_cassandra("news")
 
 # uncomment for local testing

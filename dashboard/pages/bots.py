@@ -14,10 +14,20 @@ import getbotgraphs
 import dash_bootstrap_components as dbc
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
+from pathlib import Path
+
+# Create path
+PARENT_PATH = str(Path().resolve()) + "\\"
+PATH = "dashboard\\data\\"
+SUBPATH = "ukraine_geojson-master\\"
+FILE = "UA_FULL_Ukraine"
+FORMAT = ".json"
+
 # Self written
 #from textmining import GetTopHashtagsData, GetTopWordsData
 
 from utils import load_from_cassandra
+
 
 ### import data ### 
 
@@ -34,8 +44,7 @@ df_twitter = df_twitter[df_twitter['tweet'] != "fake"]
 df_twitter['author_location'] = df_twitter['author_location'].str.lower()
 df_twitter['author_location'] = df_twitter['author_location'].str.lstrip().str.rstrip()
 
-fp = r"C:\Users\Sven\Downloads\ukraine_geojson-master\ukraine_geojson-master\UA_FULL_Ukraine.json"
-df_map = gpd.read_file(fp)
+df_map = gpd.read_file(PARENT_PATH + PATH + SUBPATH + FILE + FORMAT)
 
 df_twitter.created_at = pd.to_datetime(df_twitter.created_at)
 df_news.created_at = pd.to_datetime(df_news.created_at)
