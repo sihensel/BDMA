@@ -18,16 +18,16 @@ import dash_bootstrap_components as dbc
 # Self written
 #from textmining import GetTopHashtagsData, GetTopWordsData
 
-# from utils import load_from_cassandra
+from utils import load_from_cassandra
 
 ### import data ### 
 
 # import data from cassandra
-# df_twitter = load_from_cassandra("twitter")
-# df_news = load_from_cassandra("news")
+df_twitter = load_from_cassandra("twitter")
+df_news = load_from_cassandra("news")
 
 # uncomment for local testing
-df_twitter = pd.read_csv("././dashboard/data/twitter_labeled.csv", on_bad_lines='skip')
+# df_twitter = pd.read_csv("././dashboard/data/twitter_labeled.csv", on_bad_lines='skip')
 
 df_twitter.created_at = pd.to_datetime(df_twitter.created_at)
 # -----------------#
